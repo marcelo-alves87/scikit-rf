@@ -94,7 +94,7 @@ def complex_2_db(input):
 
 def complex_2_db_vswr(input):
 
-    x = magnitude_2_db(npy.abs( input))
+    x = (npy.abs( input))
     x = (1 + abs(x)) / (1 - abs(x))	
     return x
 
