@@ -4,6 +4,12 @@ import matplotlib.pyplot as plt
 import numpy as np
 import csv
 
+def smooth(y, box_pts):
+    box = np.ones(box_pts)/box_pts
+    y_smooth = np.convolve(y, box, mode='same')
+    return y_smooth
+
+
 def normalize_csv(filename):
     xs = []
     ys = []
@@ -59,27 +65,34 @@ points = np.arange(0,101)
 ##x,y = probe.plot_s_db_time()
 ##x,y=x[100:201],y[100:201]
 ##plt.plot(x*3*10**8/2,abs(y),label='Analytic')
+plt.rc('legend', fontsize=20)    # legend fontsize
 
-##x,y = normalize_csv('VSWR.csv')
-##plt.plot(x,y,label='VNA VSWR')
+
+
+x,y = normalize_csv('VSWR__SMO.csv')
+plt.plot(0.9*x,y,label='Medicao+Smooth', linewidth=2, color='red')
+##plt.xticks(np.arange(min(x), max(x), 0.1))
 ##
 ##x,y = normalize_csv('S11-VSWR.csv')
 ##plt.plot(x,y,label='S11 VSWR')
 
-##probe = rf.Network('RL.s1p')
-##x,y = probe.plot_s_db_time(window=('kaiser', 6))
-##x,y=x[100:201],y[100:201]
-##plt.plot(x*3*10**8/2,abs(y),label='Kaiser')
+probe = rf.Network('S11_LOG_.s1p')
+x,y = probe.plot_s_db_time(window=('kaiser', 6))
+x,y=x[100:201],y[100:201]
+plt.plot(0.9*x*3*10**8/2,smooth(abs(y),3),label='Simulacao',  linewidth=2)
+
+##x,y = normalize_csv('VSWR__.csv')
+##plt.plot(0.9*x,y,label='Medicao', linewidth=2)
 
 ##probe = rf.Network('RL.s1p')
 ##x,y = probe.plot_s_db_time(window=('boxcar'))
 ##x,y=x[100:201],y[100:201]
 ##plt.plot(x*3*10**8/2,abs(y),label='Boxcar')
 
-probe = rf.Network('RL.s1p')
-x,y = probe.plot_s_db_time(window=('triang'))
-x,y=x[100:201],y[100:201]
-#plt.plot(x*3*10**8/2,abs(y),label='Triang')
+##probe = rf.Network('RL.s1p')
+##x,y = probe.plot_s_db_time(window=('triang'))
+##x,y=x[100:201],y[100:201]
+##plt.plot(x*3*10**8/2,abs(y),label='Triang')
 
 ##probe = rf.Network('RL.s1p')
 ##x,y = probe.plot_s_db_time(window=('blackman'))
@@ -126,31 +139,35 @@ x,y=x[100:201],y[100:201]
 ##x,y=x[100:201],y[100:201]
 ##plt.plot(x*3*10**8/2,abs(y),label='Nuttall')
 ##
-probe = rf.Network('RL.s1p')
-x,y = probe.plot_s_db_time(window=('barthann'))
-x,y=x[100:201],y[100:201]
-plt.plot(x*3*10**8/2,abs(y),label='Barthann')
+##probe = rf.Network('RL.s1p')
+##x,y = probe.plot_s_db_time(window=('barthann'))
+##x,y=x[100:201],y[100:201]
+##plt.plot(x*3*10**8/2,abs(y),label='Barthann')
 ##
 ##probe = rf.Network('RL.s1p')
 ##x,y = probe.plot_s_db_time(window=('gaussian', 0.07))
 ##x,y=x[100:201],y[100:201]
 ##plt.plot(x*3*10**8/2,abs(y),label='Gaussian')
 ##
-probe = rf.Network('RL.s1p')
-x,y = probe.plot_s_db_time(window=('slepian', 0.03))
-x,y=x[100:201],y[100:201]
-#plt.plot(x*3*10**8/2,abs(y),label='Slepian')
-##
-probe = rf.Network('RL.s1p')
-x,y = probe.plot_s_db_time(window=('chebwin', 100))
-x,y=x[100:201],y[100:201]
-#plt.plot(x*3*10**8/2,abs(y),label='Chebwin')
+##probe = rf.Network('RL.s1p')
+##x,y = probe.plot_s_db_time(window=('slepian', 0.03))
+##x,y=x[100:201],y[100:201]
+###plt.plot(x*3*10**8/2,abs(y),label='Slepian')
+####
+##probe = rf.Network('RL.s1p')
+##x,y = probe.plot_s_db_time(window=('chebwin', 100))
+##x,y=x[100:201],y[100:201]
+###plt.plot(x*3*10**8/2,abs(y),label='Chebwin')
 
-x,y = normalize_csv('DTF-VSWR.csv')
-x,y=x[0:101],y[0:101]
-plt.plot(x,y,label='VNA')
+##x,y = normalize_csv('DTF-VSWR.csv')
+##x,y=x[0:101],y[0:101]
+##plt.plot(x,y,label='VNA')
 
 #plt.gca().invert_yaxis()
+
+plt.xlabel('Meter (m)', fontsize=20)
+plt.ylabel('VSWR', fontsize=20)
+plt.title('H1D50-20')
 plt.grid()
 plt.legend()
 plt.show()
