@@ -57,31 +57,30 @@ def get_vswr_from_log(data):
 ##x,y = normalize_csv('H1D15/H1D15-Med-Freq.csv', 1)
 ##plt.plot(x,y,label='Medicao')
 
-##for i in range(1,15):
-##    
-##    x,y = normalize_csv('CampoExperimental/' + str(i) +'Z.csv', 1)
-##    x,z = normalize_csv('CampoExperimental/'+ str(i) + 'Z.csv', 2)
+    
+##x,y = normalize_csv('H2N/H2N - Modulo.csv', 1)
+##x,z = normalize_csv('H2N/H2N - Fase.csv', 1)
 ##
-##    ##x = [int(x1*10**9) for x1 in x]
+##x = [int(x1*10**9) for x1 in x]
 ##
-##    f = open("CampoExperimental/"+ str(i) + "Z.s1p","w+")
-##    f.write('!Keysight Technologies N9923A: A.08.19\n')
-##    f.write('!Date: Thursday, 16 January 2020 11:30:00\n')
-##    f.write('!TimeZone: (GMT-03:00) Brasilia!Model: N9923A\n')
-##    f.write('!Serial: MY51491501\n')
-##    f.write('!GPS Latitude: \n')
-##    f.write('!GPS Longitude: \n')
-##    f.write('!GPS TimeStamp: 0001-01-01 00:00:00Z\n')
-##    f.write('!GPS Seconds Since Last Read: 0\n')
-##    f.write('!CHECKSUM:1078980270\n')
-##    f.write('!Correction: S11(ON U)\n')
-##    f.write('!S1P File: Measurement: S11:\n')
-##    f.write('# Hz S DB R 50\n')
+##f = open("H2N/H2N.s1p","w+")
+##f.write('!Keysight Technologies N9923A: A.08.19\n')
+##f.write('!Date: Thursday, 16 January 2020 11:30:00\n')
+##f.write('!TimeZone: (GMT-03:00) Brasilia!Model: N9923A\n')
+##f.write('!Serial: MY51491501\n')
+##f.write('!GPS Latitude: \n')
+##f.write('!GPS Longitude: \n')
+##f.write('!GPS TimeStamp: 0001-01-01 00:00:00Z\n')
+##f.write('!GPS Seconds Since Last Read: 0\n')
+##f.write('!CHECKSUM:1078980270\n')
+##f.write('!Correction: S11(ON U)\n')
+##f.write('!S1P File: Measurement: S11:\n')
+##f.write('# Hz S DB R 50\n')
 ##
-##    for i in range(len(x)):
-##        f.write(str(x[i]) + ' ' + str(y[i]) + ' ' + str(z[i]) + '\n')
+##for i in range(len(x)):
+##    f.write(str(x[i]) + ' ' + str(y[i]) + ' ' + str(z[i]) + '\n')
 ##     
-##    f.close()
+##f.close()
 
 ##
 
@@ -118,14 +117,17 @@ def get_vswr_from_log(data):
 #plt.xticks(np.arange(0, max(x1),0.1),fontsize=6)
 
 
-probe = rf.Network('H1N - Equivalente/H1N-Equivalente.s1p')
+probe = rf.Network('H2D80-20/H2D80-20.s1p')
 x,y = probe.plot_s_db_time(window=('kaiser', 6))
-plt.plot(3*10**8*x/2,smooth(y,3),label='Simulacao',  linewidth=2)
+plt.plot(0.92*3*10**8*x/2,smooth(y,3),label='Simulacao',  linewidth=2)
+##
+##x,y = normalize_csv('Viagem-2-STN/Viagem-2-STN/01-08-2019/05v6/7-2/B/T28.csv',1)
+##plt.plot(x,smooth(y,3),label='Tempo',  linewidth=2)
+##
+##x,y = normalize_csv('MDSC2/04-02-2019/H1N/H1N-Med-DTF-3_Amp.csv', 1)
+##plt.plot(x,smooth(y,3),label='Medicao', linewidth=2)
 
-x,y = normalize_csv('MDSC2/04-02-2019/H1N/H1N-Med-DTF-3_Amp.csv', 1)
-plt.plot(x,smooth(y,3),label='Medicao', linewidth=2)
-
-plt.xticks(np.arange(0,2,0.1))
+##plt.xticks(np.arange(0,2,0.1))
 ####
 ##
 ##x1,y1 = normalize_csv('MDSC2/04-02-2019/H1D15/H1D15-Med-DTF-2_Amp.csv', 1)
@@ -151,7 +153,7 @@ plt.xticks(np.arange(0,2,0.1))
 plt.rc('legend', fontsize=20)    # legend fontsize
 plt.xlabel('Metro (m)', fontsize=20)
 plt.ylabel('VSWR', fontsize=20)
-plt.title('H1N')
+plt.title('Torre 7/2 - Estai B')
 plt.grid()
 plt.legend()
 plt.show()
